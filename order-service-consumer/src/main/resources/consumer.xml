@@ -8,10 +8,14 @@
 
     <dubbo:application name="order-service-consumer"/>
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
-    <!--声明需要调用服务服务的接口，生成远程服务代理-->
-    <dubbo:reference interface="com.liyiruo.gmall.service.UserService" id="userService"/>
-<!--
-    <dubbo:monitor protocol="registry"/>
--->
+    <!--声明需要调用服务服务的接口，生成远程服务代理 check='false'配置项目启动不检查是否能连上注册中心-->
+    <dubbo:reference interface="com.liyiruo.gmall.service.UserService" id="userService"
+                     check="false" timeout="1000"/>
+
+    <!--统一配置当前消费者的规则 上面只配置一个接口-->
+    <dubbo:consumer check="false" timeout="3000"/>
+    <!--
+        <dubbo:monitor protocol="registry"/>
+    -->
     <dubbo:monitor address="127.0.0.1:7070"/>
 </beans>
